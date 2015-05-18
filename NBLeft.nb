@@ -1,0 +1,161 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      5650,        152]
+NotebookOptionsPosition[      5221,        133]
+NotebookOutlinePosition[      5567,        148]
+CellTagsIndexPosition[      5524,        145]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{3.6409103348906965`*^9}],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.6409103318642907`*^9, 3.640910331879891*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Parallelize", "[", 
+    RowBox[{"NSolve", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"5.03", "-", 
+        RowBox[{"129", "*", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"1", "-", 
+            RowBox[{"18", "/", "129"}]}], ")"}], "/", 
+          RowBox[{"(", 
+           RowBox[{"2", "*", 
+            RowBox[{"(", 
+             RowBox[{"1", "-", 
+              RowBox[{"301", "/", "s"}]}], ")"}]}], ")"}]}]}], "+", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"301", "/", 
+            RowBox[{"(", 
+             RowBox[{"s", "*", 
+              RowBox[{"18", "/", "129"}]}], ")"}]}], ")"}], "^", "2"}], "/", 
+         RowBox[{"(", 
+          RowBox[{"2", "*", "301", "*", 
+           RowBox[{"(", 
+            RowBox[{"1", "-", 
+             RowBox[{"301", "/", 
+              RowBox[{"(", 
+               RowBox[{"s", "*", 
+                RowBox[{"18", "/", "129"}]}], ")"}]}]}], ")"}]}], ")"}]}], 
+        "-", 
+        RowBox[{"0.65", "*", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"129", "/", "301"}], ")"}], "^", 
+          RowBox[{"(", 
+           RowBox[{"1", "/", "3"}], ")"}]}], "*", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"301", "/", 
+            RowBox[{"(", 
+             RowBox[{"s", "*", 
+              RowBox[{"18", "/", "129"}]}], ")"}]}], ")"}], "^", 
+          RowBox[{"(", 
+           RowBox[{"2", "+", 
+            RowBox[{"5", "*", 
+             RowBox[{"18", "/", "129"}]}]}], ")"}]}]}]}], "\[Equal]", "0"}], 
+      ",", "s", ",", "Reals"}], "]"}], "]"}], "\n"}]}]], "Input",
+ CellChangeTimes->CompressedData["
+1:eJxTTMoPSmViYGAQB2IQvWH30sYqhdeOi/oNW0G0xdJ7/SB6XciFRSB6+d1v
+20B0UnvhdhAtlL/+BYj+9jv1DYgW28P9G0QXRdiA6e53O2SqgTTbn7VyINrO
+aIImiN72QNIERL/bN98BRM/6sMEDRFf07vEH0QHhlUEgukkhMApEP/wVGgei
+j+cHJYNor5jkDBC9I9g0B6zvRACYnlwmWQCin9wwBNOLnuiVgegTLUa1IHqP
+1YRGEB1hm90Goo9tzOwD0dGxKyaCaEFV6+kgmnHFkpkg2i356VwQzdz1fT7Y
+vLZDK0G02SXl9SB61wWOLSB67wu7bSB6muqR3SA6ZNZ9ML1sg9RBEP3fJvcw
+iPZxfnEa7N4ClisgGgCmYrOj
+  "]],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"Parallelize", "::", "nopar1"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"\[NoBreak]\\!\\(NSolve[\\(\\(\\(\\(\\(\\(\\(\\(5.03` \
+\[VeryThinSpace]\\)\\) - \\(129\\\\ \\(\\((1 + \\(\\(Times[\\(\\(\
+\[LeftSkeleton] 2 \[RightSkeleton]\\)\\)]\\)\\))\\)\\)\\)\\/\\(Times[\\(\\(\
+\[LeftSkeleton] 2 \[RightSkeleton]\\)\\)]\\) + \\((301\\/\\(Times[\\(\\(\
+\[LeftSkeleton] 2 \[RightSkeleton]\\)\\)]\\))\\)\\^2\\/\\(2\\\\ 301\\\\ \
+\\(\\((1 + \\(\\(Times[\\(\\(\[LeftSkeleton] 2 \[RightSkeleton]\\)\\)]\\)\\))\
+\\)\\)\\) - \\(\\(0.65`\\\\ \\((129\\\\ \\(\\(Power[\\(\\(\[LeftSkeleton] 2 \
+\[RightSkeleton]\\)\\)]\\)\\))\\)\\^\\(1\\\\ \
+\\(\\(Power[\\(\\(\[LeftSkeleton] 2 \[RightSkeleton]\\)\\)]\\)\\)\\)\\\\ \
+\\((301\\\\ \\(\\(Power[\\(\\(\[LeftSkeleton] 2 \
+\[RightSkeleton]\\)\\)]\\)\\))\\)\\^\\(2 + \\(\\(Times[\\(\\(\[LeftSkeleton] \
+2 \[RightSkeleton]\\)\\)]\\)\\)\\)\\)\\)\\)\\) \[Equal] 0\\)\\), s, \
+Reals\\)\\)]\\)\[NoBreak] cannot be parallelized; proceeding with sequential \
+evaluation. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
+ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/Parallelize\\\", ButtonNote -> \
+\\\"Parallelize::nopar1\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.6409080286904297`*^9, 3.6409082012794957`*^9, 
+  3.640908461999954*^9, 3.6409085398596907`*^9, 3.640908644848875*^9, 
+  3.6409087897623296`*^9, 3.6409088652040625`*^9, 3.6409090725680265`*^9, 
+  3.640909252795143*^9, 3.6409093501153145`*^9, 3.640909491389163*^9, 
+  3.6409098668662868`*^9, 3.640913509174567*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"s", "\[Rule]", "2157.226427334376`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"s", "\[Rule]", "233.54963498482522`"}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.6409067844562635`*^9, 3.6409067978110275`*^9}, {
+   3.6409069761732287`*^9, 3.6409070284072165`*^9}, 3.6409071873983107`*^9, 
+   3.6409073023678865`*^9, 3.640908001677884*^9, 3.6409080325956526`*^9, 
+   3.640908248828379*^9, 3.640908463216756*^9, 3.640908541123293*^9, 
+   3.640908650979686*^9, 3.640908793209936*^9, 3.640908868526868*^9, 
+   3.6409090921772614`*^9, 3.6409092529355435`*^9, 3.6409093502401147`*^9, 
+   3.640909864717595*^9, 3.6409101862775116`*^9, 3.6409139260838275`*^9}]
+}, Open  ]]
+},
+WindowSize->{778, 640},
+WindowMargins->{{Automatic, 264}, {Automatic, 18}},
+FrontEndVersion->"10.0 for Microsoft Windows (64-bit) (December 4, 2014)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 70, 1, 31, "Input"],
+Cell[631, 23, 94, 1, 31, "Input"],
+Cell[CellGroupData[{
+Cell[750, 28, 2129, 59, 172, "Input"],
+Cell[2882, 89, 1590, 26, 105, "Message"],
+Cell[4475, 117, 730, 13, 87, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
