@@ -1,0 +1,429 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode}
+\usepackage{CJKutf8}
+\setlength{\headheight}{15pt} 
+\usepackage{CJKutf8}
+\usepackage{textcomp}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{times}
+\usepackage{mathptmx}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\geometry{left=3.17cm,right=3.17cm,top=2.54cm,bottom=2.54cm}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\rhead{Page \thepage{} of \pageref{LastPage}}
+
+
+
+
+\begin{document}
+\begin{CJK*}{UTF8}{gbsn}
+
+\begin{center}
+\textbf{\Large{附录}}
+\end{center}
+\noindent\textbf{calDelayA.m}
+\vspace{-15pt}
+\lstset{basicstyle=\ttfamily\footnotesize,escapechar=`}
+\begin{lstlisting}
+function x = calDelayA(q,C,lam,qa)
+mu=0.75;
+L=(q/3600)/(mu-q/3600);
+x = (mu-q/3600)*3600/q*(q*(1-lam)*(L/(mu*lam))-0.5*lam*C)*q/qa;
+
+if x<0
+    x=0;
+end
+\end{lstlisting}
+
+\noindent\textbf{dA.m}
+\vspace{-15pt}
+\lstset{basicstyle=\ttfamily\footnotesize,escapechar=`}
+\begin{lstlisting}
+function delayA = dA(t1,t2,t3,t4)
+
+C = t1+t2+t3+t4+4;
+qa = 4694;
+
+lam = t2/C;
+q = 661;
+
+dA1 = calDelayA(q,C,lam,qa);
+
+lam = t1/C;
+q = 1560;
+
+dA2 = calDelayA(q,C,lam,qa);
+
+lam = t1/C;
+q = 170;
+
+dA3 = calDelayA(q,C,lam,qa);
+
+lam = t4/C;
+q = 625;
+
+dA4 = calDelayA(q,C,lam,qa);
+
+lam = t3/C;
+q = 802;
+
+dA5 = calDelayA(q,C,lam,qa);
+
+lam = t3/C;
+q = 876;
+
+dA6 = calDelayA(q,C,lam,qa);
+
+delayA = dA1 + dA2 + dA3 + dA4 + dA5 + dA6;
+
+\end{lstlisting}
+\noindent\textbf{dB.m}
+\vspace{-15pt}
+\lstset{basicstyle=\ttfamily\footnotesize,escapechar=`}
+\begin{lstlisting}
+function delayA = dB(t1,t2,t3,t4)
+
+C = t1+t2+t3+t4+4;
+qa = 5045;
+
+lam = t2/C;
+q = 1252;
+
+dB1 = calDelayA(q,C,lam,qa);
+
+lam = t1/C;
+q = 1458;
+
+dB2 = calDelayA(q,C,lam,qa);
+
+lam = t1/C;
+q = 905;
+
+dB3 = calDelayA(q,C,lam,qa);
+
+lam = t4/C;
+q = 301;
+
+dB4 = calDelayA(q,C,lam,qa);
+
+lam = t3/C;
+q = 955;
+
+dB5 = calDelayA(q,C,lam,qa);
+
+lam = t3/C;
+q = 174;
+
+dB6 = calDelayA(q,C,lam,qa);
+
+delayA = dB1 + dB2 + dB3 + dB4 + dB5 + dB6;
+\end{lstlisting}
+
+\noindent\textbf{pA.m}
+\vspace{-15pt}
+\lstset{basicstyle=\ttfamily\footnotesize,escapechar=`}
+\begin{lstlisting}
+function powerA = pA(t1,t2,t3,t4)
+
+powerA = (661*t2 + 1560*t1 + 170*t1 + ...
+625*t4 + 802*t3 + 876*t3)/3600;
+\end{lstlisting}
+
+\noindent\textbf{pB.m}
+\vspace{-10pt}
+\lstset{basicstyle=\ttfamily\footnotesize,escapechar=`}
+\begin{lstlisting}
+function powerB = pB(t1,t2,t3,t4)
+
+powerB = (1252*t2 + 1458*t1 + 905*t1 + ...
+301*t4 + 955*t3 + 174*t3)/3600;
+\end{lstlisting}
+
+\noindent\textbf{dApA.m}
+\vspace{-15pt}
+\lstset{basicstyle=\ttfamily\footnotesize,escapechar=`}
+\begin{lstlisting}
+%dApA.m
+N = 1000;
+c1 = 0.5;
+c2 = 0.5;
+Fitness1 = zeros(1,N);
+Fitness2 = zeros(1,N);
+pBest = zeros(4,N);
+dpBest = zeros(1,N);
+X = [15 + 45 * rand(1,N);15 + 45 * rand(1,N);15 + ...
+45 * rand(1,N);15 + 45 * rand(1,N)];
+V = [1* (rand(1,N) - 0.5);1 * (rand(1,N) - 0.5);1 ...
+* (rand(1,N) - 0.5);1 * (rand(1,N) - 0.5)];
+pBest1 = X;
+pBest2 = X;
+
+pA0 = pA(56,23,35,26);
+dA0 = dA(56,23,35,26);
+
+for j = 1:100
+    for i = 1:N
+        Fitness1(i) = dA(X(1,i),X(2,i),X(3,i),X(4,i))/dA0;
+        Fitness2(i) = -pA(X(1,i),X(2,i),X(3,i),X(4,i))/pA0;
+        if Fitness1(i)<dA(pBest1(1,i),pBest1(2,i),...
+        pBest1(3,i),pBest1(4,i))/dA0
+            pBest1(:,i) = X(:,i);
+        end
+        if Fitness2(i)<pA(pBest2(1,i),pBest2(2,i),...
+        pBest2(3,i),pBest2(4,i))/pA0
+            pBest2(:,i) = X(:,i);
+        end
+    end
+    
+    gBest1Index = find(Fitness1==min(Fitness1));
+    gBest1 = X(:,gBest1Index(:,1));
+    gBest2Index = find(Fitness2==min(Fitness2));
+    gBest2 = X(:,gBest2Index(:,1));
+    
+    gBest = (gBest1+gBest2)/2;
+    dgBest = sqrt((gBest1(1)-gBest2(1))^2+(gBest1(2)...
+    -gBest2(2))^2+(gBest1(3)-gBest2(3))^2+(gBest1(4)-gBest2(4))^2);
+    
+    for i = 1:N
+        dpBest(i) = sqrt((pBest1(1,i)-pBest2(1,i))^2...
+        +(pBest1(2,i)-pBest2(2,i))^2+(pBest1(3,i)-...
+        pBest2(3,i))^2+(pBest1(4,i)-pBest2(4,i))^2);
+    end
+
+    for i = 1:N
+       if dpBest(i)<dgBest
+           r = rand(1);
+           if r<0.5
+               pBest(:,i) = pBest1(:,i);
+           else
+               pBest(:,i) = pBest2(:,i);
+           end
+       else
+           pBest(:,i) = (pBest1(:,i)+pBest2(:,i))/2;
+       end
+    end
+    
+    for i = 1:N
+        r = rand(1);
+        R = rand(1);
+        V(:,i) = (0.5) * V(:,i) + c1 * r * ...
+        (pBest(:,i)-X(:,i)) + c1 * R * (gBest-X(:,i));
+        for k = 1:4
+            if V(k,i)>1
+                V(k,i) = 1;
+            elseif V(k,i)<-1
+                V(k,i) = -1;
+            end    
+        end
+        X(:,i) = X(:,i) + V(:,i);
+        for k = 1:4
+            if X(k,i)>60
+                X(k,i) = 60;
+            elseif X(k,i)<15
+                X(k,i) = 15;
+            end
+        end
+    end
+end
+
+%test
+F1 = Fitness1;
+F2 = Fitness2;
+plot(F1,F2,'*');
+\end{lstlisting}
+
+\noindent\textbf{dBpB.m}
+\vspace{-15pt}
+\lstset{basicstyle=\ttfamily\footnotesize,escapechar=`}
+\begin{lstlisting}
+%dBpB.m
+N = 100;
+c1 = 0.5;
+c2 = 0.5;
+Fitness1 = zeros(1,N);
+Fitness2 = zeros(1,N);
+pBest = zeros(4,N);
+dpBest = zeros(1,N);
+X = [15 + 45 * rand(1,N);15 + 45 * rand(1,N);15 + 45...
+* rand(1,N);15 + 45 * rand(1,N)];
+V = 10*[1* (rand(1,N) - 0.5);1 * (rand(1,N) - 0.5);1 ...
+* (rand(1,N) - 0.5);1 * (rand(1,N) - 0.5)];
+pBest1 = X;
+pBest2 = X;
+
+pB0 = pB(47,21,39,22);
+dB0 = dB(47,21,39,22);
+
+for j = 1:500
+    for i = 1:N
+        Fitness1(i) = dB(X(1,i),X(2,i),X(3,i),X(4,i))/dB0;
+        Fitness2(i) = -pB(X(1,i),X(2,i),X(3,i),X(4,i))/pB0;
+        if Fitness1(i)<dA(pBest1(1,i),pBest1(2,i),...
+        pBest1(3,i),pBest1(4,i))/dB0
+            pBest1(:,i) = X(:,i);
+        end
+        if Fitness2(i)<pA(pBest2(1,i),pBest2(2,i),...
+        pBest2(3,i),pBest2(4,i))/pB0
+            pBest2(:,i) = X(:,i);
+        end
+    end
+    
+    gBest1Index = find(Fitness1==min(Fitness1));
+    gBest1 = X(:,gBest1Index(:,1));
+    gBest2Index = find(Fitness2==min(Fitness2));
+    gBest2 = X(:,gBest2Index(:,1));
+    
+    gBest = (gBest1+gBest2)/2;
+    dgBest = sqrt((gBest1(1)-gBest2(1))^2+(gBest1(2)-...
+    gBest2(2))^2+(gBest1(3)-gBest2(3))^2+(gBest1(4)-gBest2(4))^2);
+    
+    for i = 1:N
+        dpBest(i) = sqrt((pBest1(1,i)-pBest2(1,i))^2...
+        +(pBest1(2,i)-pBest2(2,i))^2+(pBest1(3,i)-...
+        pBest2(3,i))^2+(pBest1(4,i)-pBest2(4,i))^2);
+    end
+
+    for i = 1:N
+       if dpBest(i)<dgBest
+           r = rand(1);
+           if r<0.5
+               pBest(:,i) = pBest1(:,i);
+           else
+               pBest(:,i) = pBest2(:,i);
+           end
+       else
+           pBest(:,i) = (pBest1(:,i)+pBest2(:,i))/2;
+       end
+    end
+    
+    for i = 1:N
+        r = rand(1);
+        R = rand(1);
+        V(:,i) = (0.5) * V(:,i) + c1 * r * ...
+        (pBest(:,i)-X(:,i)) + c1 * R * (gBest-X(:,i));
+        for k = 1:4
+            if V(k,i)>1
+                V(k,i) = 1;
+            elseif V(k,i)<-1
+                V(k,i) = -1;
+            end    
+        end
+        X(:,i) = X(:,i) + V(:,i);
+        for k = 1:4
+            if X(k,i)>60
+                X(k,i) = 60;
+            elseif X(k,i)<15
+                X(k,i) = 15;
+            end
+        end
+    end
+end
+
+%test
+F1 = Fitness1;
+F2 = Fitness2;
+plot(F1,F2,'*');
+axis([0.8,1,-1.7,-1.2])
+\end{lstlisting}
+
+\noindent\textbf{getLostTimeFromA2B.m}
+\vspace{-15pt}
+\lstset{basicstyle=\ttfamily\footnotesize,escapechar=`}
+\begin{lstlisting}
+function lostTime = getLostTimeFromA2B(i,phi,T2,dt,t1,t2,DA)
+
+t = i - phi + T2 * (dt/T2 - floor(dt/T2));
+if t>T2
+    t = t - T2;
+end
+
+if i==1||i==3
+   if t>t1
+       lostTime = T2 - t + DA;
+   else
+       lostTime = DA;
+   end
+elseif i==2
+    if t<t1
+        lostTime = t1 - t + DA;
+    elseif t<t1+t2
+        lostTime = DA;
+    else
+        lostTime = t1 + T2 - t + DA;
+    end
+end
+\end{lstlisting} 
+
+\noindent\textbf{findX.m}
+\vspace{-15pt}
+\lstset{basicstyle=\ttfamily\footnotesize,escapechar=`}
+\begin{lstlisting}
+clear all;clc
+dApA;
+X1 = X;
+dBpB;
+X2 = X;
+clear X;
+X = zeros(8,10000);
+C1 = 1;
+C2 = 5;
+
+for i = 1:100
+   for j = 1:100
+      X(1:4,(i-1)*100+j) = X1(:,i);
+      X(5:8,(i-1)*100+j) = X2(:,j);
+   end
+end
+
+
+dab = getLostTimeFromA2B(2,8,sum(X(1:4,1))+4,60,X(5,1),X(6,1),...
+calDelayA(304,sum(X(5:8,1))+4,X(5,1)/(sum(X(5:8,1))+4),520))+...
+    getLostTimeFromA2B(3,8,sum(X(1:4,1))+4,60,X(5,1),X(6,1),...
+    calDelayA(84,sum(X(5:8,1))+4,X(5,1)/(sum(X(5:8,1))+4),520))+...
+    getLostTimeFromA2B(1,8,sum(X(1:4,1))+4,60,X(5,1),X(6,1),...
+    calDelayA(132,sum(X(5:8,1))+4,X(5,1)/(sum(X(5:8,1))+4),520));
+dba = getLostTimeFromA2B(2,8,sum(X(5:8,1))+4,60,X(1,1),X(2,1),...
+calDelayA(1394,sum(X(1:4,1))+4,X(1,1)/(sum(X(1:4,1))+4),2495))+...
+    getLostTimeFromA2B(3,8,sum(X(5:8,1))+4,60,X(1,1),X(2,1),...
+    calDelayA(576,sum(X(1:4,1))+4,X(1,1)/(sum(X(1:4,1))+4),2495))...
+    +getLostTimeFromA2B(1,8,sum(X(5:8,1))+4,60,X(1,1),X(2,1),...
+    calDelayA(525,sum(X(1:4,1))+4,X(1,1)/(sum(X(1:4,1))+4),2495));
+min = C1 * dab + C2 * dba;
+X0 = X(:,1);
+for i = 1:10000
+    dab = getLostTimeFromA2B(2,8,sum(X(1:4,i))+4,60,X(5,i),...
+    X(6,i),calDelayA(304,sum(X(5:8,i))+4,X(5,i)/(sum(X(5:8,i))+4),...
+    520))+getLostTimeFromA2B(3,8,sum(X(1:4,i))+4,60,X(5,i),X(6,i),...
+    calDelayA(84,sum(X(5:8,i))+4,X(5,i)/(sum(X(5:8,i))+4),520))+...
+    getLostTimeFromA2B(1,8,sum(X(1:4,i))+4,60,X(5,i),X(6,i),...
+    calDelayA(132,sum(X(5:8,i))+4,X(5,i)/(sum(X(5:8,1))+4),520));
+    dba = getLostTimeFromA2B(2,8,sum(X(5:8,i))+4,60,X(1,i),...
+    X(2,i),calDelayA(1394,sum(X(1:4,i))+4,X(1,i)/(sum(X(1:4,i))+4),...
+    2495))+getLostTimeFromA2B(3,8,sum(X(5:8,i))+4,60,X(1,i),X(2,i),...
+    calDelayA(576,sum(X(1:4,i))+4,X(1,i)/(sum(X(1:4,i))+4),2495))+...
+    getLostTimeFromA2B(1,8,sum(X(5:8,i))+4,60,X(1,i),X(2,i),...
+    calDelayA(525,sum(X(1:4,i))+4,X(1,i)/(sum(X(1:4,i))+4),2495));
+    dabba = C1 * dab + C2 * dba;
+    if dabba < min
+        min = dabba;
+        X0 = X(:,i);
+    end
+end
+
+X0
+\end{lstlisting} 
+
+
+    
+\end{CJK*}
+\end{document}
